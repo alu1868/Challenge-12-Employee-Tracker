@@ -15,11 +15,11 @@ INSERT INTO roles (title, salary, department_id)
     ('COO', 100000, 3),
     ('Warehouse' 50000, 3);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-    ('Alex', 'Lu', 1, 5),
-    ('Patrick', 'Starliper', 3, 4)
-    ('Rebecca', 'Rodriguez', 2, null)
-    ('Cristina', 'Faz', 6, null)
-    ('Jonathan', 'Wang', 8, null)
-    ('Eric', 'Winters', 2, 6)
-    ('Druvh', 'Patel', 7, 2)
+INSERT INTO employee (first_name, last_name, role_id)
+    ('Alex', 'Lu', 1),
+    ('Patrick', 'Starliper', 3)
+    ('Rebecca', 'Rodriguez', 2)
+    ('Cristina', 'Faz', 6)
+    ('Jonathan', 'Wang', 8)
+    ('Eric', 'Winters', 2)
+    ('Druvh', 'Patel', 7)

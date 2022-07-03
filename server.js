@@ -2,6 +2,11 @@ const db = require('./config/connection');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
+db.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected to Database!");
+    menu();
+});
 
 // Main Menu Prompt
 const menu = () => {
@@ -49,8 +54,8 @@ const menu = () => {
 // View ALL DEPARTMENTS
 const view_departments = () => {
     console.log("Accessing all Departments")
-    let sql = `SELECT department_name FROM departments`
-    dbCon.promise().query(sql)
+    let sql = `SELECT department_name FROM department`
+    db.promise().query(sql)
         .then(([rows]) => {
             console.log("---------------")
             console.log(rows)
@@ -63,7 +68,7 @@ const view_departments = () => {
 const view_roles = () => {
     console.log("Accessing all Roles")
     let sql = `SELECT title, salary, department_id FROM roles`
-    dbCon.promise().query(sql)
+    db.promise().query(sql)
         .then(([rows]) => {
             console.log("---------------")
             console.log(rows)
@@ -75,8 +80,8 @@ const view_roles = () => {
 // VIEW ALL EMPLOYEES
 const view_employees = () => {
     console.log("Accessing all Employees");
-    let sql = `SELECT first_name, last_name, role_id, manager_id FROM employee`
-    dbCon.promise().query(sql)
+    let sql = `SELECT first_name, last_name, role_id FROM employee`
+    db.promise().query(sql)
         .then(([rows]) => {
             console.log("---------------")
             console.log(rows)
@@ -93,7 +98,7 @@ const add_department = () => {
             type: 'input',
             name: 'department_name',
             message: 'What is the name of your new department?',
-            validate: department_name => {
+            validate: (department_name) => {
                 if (department_name) {
                     return true;
                 } else {
@@ -105,8 +110,8 @@ const add_department = () => {
     ])
     .then((answers) => {
         const { department } = answers;
-        db.promise().query()(
-            `INSERT INTO department (department_name) VALUES ('${department})`
+        db.promise().query(
+            `INSERT INTO department (department_name) VALUES ('${department}')`
         );
         view_departments();
     })
@@ -155,10 +160,10 @@ const add_role = () => {
         ])
         .then((answers) => {
             const role_details = [answers.title, answers.salary, answers.department_id]
-            const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
+            const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)`;
 
             db.promise()
-            .query(sql,role_details)
+            .query(sql, role_details)
             .then(([rows]) => {
                 view_roles()
             })
@@ -168,8 +173,8 @@ const add_role = () => {
 
 // ADD AN EMPLOYEE
 const add_employee = () => {
-    db.promse()
-    .query('SELECT * FROM role')
+    db.promise()
+    .query('SELECT * FROM roles')
     .then(([rows]) =>{
         const role_choice = rows.map(({id, title}) => ({ name: title, value: id }));
 
@@ -204,12 +209,12 @@ const add_employee = () => {
                 type: 'list',
                 name: 'role_id',
                 message: "What is the employee's Role?",
-                choices: roles_choice
+                choices: role_choice
             }
         ])
         .then((answers) => {
-            const employee_details = [answers.employee_fName, answers.employee_lName, answers.role_id];
-            const sql = `INSERT INTO role (first_name, last_name, role_id) VALUES (?, ?, ?)`;
+            const employee_details = [answers.first_name, answers.last_name, answers.role_id];
+            const sql = `INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)`;
             
             db.promise()
                 .query(sql, employee_details)
@@ -245,7 +250,7 @@ const update_employee = () => {
             .query(`SELECT * FROM employee WHERE id= ${answers.update_worker}`)
             .then((answers) => {
                 db.promise()
-                .query('SELECT * FROM role')
+                .query('SELECT * FROM roles')
                 .then(([rows]) => {
                     const role_choice = rows.map(({ title, id }) => ({
                         name: title,
@@ -262,7 +267,7 @@ const update_employee = () => {
                     ])
                     .then((answers) => {
                         const role_id = answers.newRole;
-                        const sql = `UPDATE emplyee SET role_id = ? where id = ?`;
+                        const sql = `UPDATE employee SET role_id = ? where id = ?`;
 
                         update.push(role_id);
                         update.push(answers.update_worker)
@@ -270,7 +275,7 @@ const update_employee = () => {
                         db.promise()
                         .query(sql, update)
                         .then(({ rows }) => {
-                            view_employees
+                            view_employees();
                         })
                     })
                 })

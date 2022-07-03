@@ -1,0 +1,27 @@
+{
+  "name": "challenge-12-employee-tracker",
+  "version": "1.0.0",
+  "description": "DB to track departments/roles/employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alu1868/Challenge-12-Employee-Tracker.git"
+  },
+  "author": "Alexander Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alu1868/Challenge-12-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/alu1868/Challenge-12-Employee-Tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^16.0.1",
+    "inquirer": "^9.0.0",
+    "mysql2": "^2.3.3",
+    "node": "^18.4.0"
+  }
+}

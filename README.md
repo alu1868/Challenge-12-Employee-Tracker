@@ -7,7 +7,7 @@
 4. [Installation](#installation)
 5. [Demo](#demo) 
 6. [Technology](#technology)
-6. [Questions](#questions)
+7. [Questions](#questions)
 
 # User Story
     AS A business owner
@@ -48,3 +48,6 @@
 # Technology
 
 # Questions
+  For further questions, you can reach out to me by:
+  email: alu1868@gmail.com
+  GitHub: github.com/alu1868

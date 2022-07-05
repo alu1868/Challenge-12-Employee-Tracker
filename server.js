@@ -109,12 +109,15 @@ const add_department = () => {
         }
     ])
     .then((answers) => {
-        const { department } = answers;
-        db.promise().query(
-            `INSERT INTO department (department_name) VALUES ('${department}')`
-        );
-        view_departments();
+        const department_detail = [ answers.department_name ]
+        const sql = `INSERT INTO department (department_name) VALUES (?)`
+        db.promise()
+            .query(sql, department_detail)
+            .then(([rows]) => {
+                view_departments()
+            })
     })
+    .catch(console.log);
 }
 
 // ADD A ROLE

@@ -6,8 +6,7 @@
 3. [Description](#description)
 4. [Installation](#installation)
 5. [Demo](#demo) 
-6. [Technology](#technology)
-7. [Questions](#questions)
+6. [Questions](#questions)
 
 # User Story
     AS A business owner
@@ -42,10 +41,10 @@
     Application that track employees and roles
 
 # Installation
+    ensure you are in the correct directory in your terminal. Proceed to run a 'npm install', then log into your mysql and source the 'db/schema.sql' and 'db/seeds.sql'. Next choose the database by using 'use employee_tracker_db;'. You can choose to see all the currently existing data in the terminals if you so choose to. Once finished leave mysql, and run 'node server.js' in your terminal to start the program.
 
 # Demo
-
-# Technology
+https://drive.google.com/file/d/1Bki939p8t0L-ObbRjvAJCBU4FI1Be91i/view?usp=sharing
 
 # Questions
   For further questions, you can reach out to me by:
